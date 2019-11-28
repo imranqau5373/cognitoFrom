@@ -15,7 +15,7 @@ router.post('/formData', function(req, res, next) {
         OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
         CellPhone1 : req.body.MobilePhone,
         EndDate : "",
-        StartDate : getTodayDate()
+        StartDate : ""
     };
     console.log(getNextYearDate());
   var options = { method: 'POST',
@@ -25,7 +25,7 @@ router.post('/formData', function(req, res, next) {
      'cache-control': 'no-cache',
      Authorization: 'Basic ZG9ubmllQHJnYWkubmV0OmRvbm5pZTU1NQ==',
      'Content-Type': 'application/xml' },
-     body: '<Cardskipper>\r\n<Members>\r\n<Member Birthdate="2009-04-21" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="2020-11-11" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+     body: '<Cardskipper>\r\n<Members>\r\n<Member Birthdate="2009-04-21" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="2020-11-11" StartDate="2019-11-11"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);

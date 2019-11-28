@@ -17,7 +17,7 @@ router.post('/formData', function(req, res, next) {
         EndDate : "",
         StartDate : ""
     };
-    console.log(getNextYearDate());
+ 
   var options = { method: 'POST',
   url: 'https://api.cardskipper.se/Import/Member',
   headers: 

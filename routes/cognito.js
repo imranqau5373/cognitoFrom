@@ -1,15 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var req = require("request");
+var unirest = require("unirest");
+var http = require("https");
 var request = require("request");
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log('in get method');
-  senCardSkipper("testdata",function(res){
-    console.log('send card response');
-    res.json('test new return get method');
-  });
+  var firstName = "test New Imran";
+
+  var options = { method: 'POST',
+  url: 'https://api.cardskipper.se/Import/Member',
+  headers: 
+   { 'Postman-Token': 'a1729a25-7f9e-4883-845f-e2704b73ea6a',
+     'cache-control': 'no-cache',
+     Authorization: 'Basic ZG9ubmllQHJnYWkubmV0OmRvbm5pZTU1NQ==',
+     'Content-Type': 'application/xml' },
+  body: '<Cardskipper>\r\n<Members>\r\n<Member Birthdate="2009-04-21" Firstname="'+firstName+'" Lastname="Schelin" OrganisationMemberId="1604">\r\n<ContactInfo CellPhone1="0706051780"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="2015-05-15" StartDate="2019-05-16"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  res.json('it is working now.');
+});
 
 });
 router.get('/test', function(req, res, next) {
@@ -43,15 +56,16 @@ request(options, function (error, response, body) {
 });
 
 router.post('/formData', function(req, res, next) {
-
-  var myJSON = JSON.stringify(req.body);
-  fs.writeFile('demofile1.txt', myJSON, function (err) {
-    if (err) throw err;
-    console.log('Saved!');
-    console.log(req.body);
-    senCardSkipper(req.body);
-    res.json("test new data");
-  });
+  console.log("in from data request.");
+  res.json("test new data");
+  // var myJSON = JSON.stringify(req.body);
+  // fs.writeFile('demofile1.txt', myJSON, function (err) {
+  //   if (err) throw err;
+  //   console.log('Saved!');
+  //   console.log(req.body);
+  //   senCardSkipper(req.body);
+  //   res.json("test new data");
+  // });
 
   });
 

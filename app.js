@@ -10,6 +10,8 @@ var usersRouter = require('./routes/users');
 
 var cognitoRouter = require('./routes/cognito');
 
+var cardSkipper = require('./routes/cardskipper');
+
 var app = express();
 
 app.use(express.json());
@@ -32,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cognito', cognitoRouter);
+app.use('/cardskipper', cardSkipper);
 
 
 // catch 404 and forward to error handler

@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var request = require("request");
 
+router.get('/', function(req, res, next) {
+res.json('it is working now.');
+  
+  });
+
 
 router.post('/formData', function(req, res, next) {
     var userData = {

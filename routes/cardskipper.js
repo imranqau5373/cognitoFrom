@@ -43,7 +43,7 @@ request(options, function (error, response, body) {
   if (error) throw new Error(error);
   //console.log(response);
   console.log(response.statusCode);
-  res.json('it is working now.');
+  res.json(response.statusCode);
 });
   
 });

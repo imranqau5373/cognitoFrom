@@ -29,12 +29,10 @@ router.post('/formData', function(req, res, next) {
     console.log(userData);
      var myJSON = JSON.stringify(req.body);
   fs.writeFile('demofile1.txt', myJSON, function (err) {
-    if (err) throw err;
-    res.json("test new data");
+
   });
   fs.writeFile('demofileData.txt', userData, function (err) {
-    if (err) throw err;
-    res.json("test new data");
+  
   });
     //res.json('it is working.');
  

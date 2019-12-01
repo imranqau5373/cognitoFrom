@@ -14,9 +14,20 @@ router.post('/formData', function(req, res, next) {
         Lastname : req.body.Name.Last,
         OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
         CellPhone1 : req.body.MobilePhone,
-        EndDate : "",
-        StartDate : ""
+        EndDate : getNextYearDate(),
+        StartDate : getTodayDate(),
+        Birthdate: req.body.BirthDate,
+        fullAddress : req.body.Address.FullAddress,
+        city : req.body.Address.City,
+        zipCode:req.body.Address.PostalCode,
+        OrderId:req.body.Order.Id,
+        userEmail:req.body.Order.EmailAddress
     };
+    userData.userEmail = userData.userEmail.replace(/\s+/g, '');
+    userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
+
+    console.log(userData);
+    //res.json('it is working.');
  
   var options = { method: 'POST',
   url: 'https://api.cardskipper.se/Import/Member',
@@ -25,10 +36,12 @@ router.post('/formData', function(req, res, next) {
      'cache-control': 'no-cache',
      Authorization: 'Basic ZG9ubmllQHJnYWkubmV0OmRvbm5pZTU1NQ==',
      'Content-Type': 'application/xml' },
-     body: '<Cardskipper>\r\n<Members>\r\n<Member Birthdate="2009-04-21" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="2020-11-11" StartDate="2019-11-11"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+     body:  '<Cardskipper>\r\n<Members>\r\n<Member Inactive="false"  Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n\r\n<Address City="'+userData.city+'" Zip="'+userData.zipCode+'" Line2="Test" Line1="'+userData.fullAddress+'"/>\r\n<ContactInfo EMail="'+userData.userEmail+'"/>\r\n<Organisations>\r\n\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+     //'<Cardskipper>\r\n<Members>\r\n<Member Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
+  //console.log(response);
   console.log(response.statusCode);
   res.json('it is working now.');
 });
@@ -44,6 +57,8 @@ var yyyy = today.getFullYear();
 today = yyyy + '-' + mm + '-' + dd;
 return today;
 }
+
+
 
 
 function getNextYearDate(){

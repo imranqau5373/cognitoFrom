@@ -24,12 +24,8 @@ res.json('it is working now.');
   };
   userData.userEmail = userData.userEmail.replace(/\s+/g, '');
   userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
+  res.json('newData');
 
-  console.log(userData);
-   var myJSON = JSON.stringify(req.body);
-  fs.writeFile('demofile1.txt', myJSON, function (err) {
-    res.json('newData');
-  });
 });
 
 
@@ -52,14 +48,14 @@ router.post('/formData', function(req, res, next) {
     userData.userEmail = userData.userEmail.replace(/\s+/g, '');
     userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
 
-    console.log(userData);
-     var myJSON = JSON.stringify(req.body);
-  fs.writeFile('demofile1.txt', myJSON, function (err) {
+  //   console.log(userData);
+  //    var myJSON = JSON.stringify(req.body);
+  // fs.writeFile('demofile1.txt', myJSON, function (err) {
 
-  });
-  fs.writeFile('demofileData.txt', userData, function (err) {
+  // });
+  // fs.writeFile('demofileData.txt', userData, function (err) {
   
-  });
+  // });
     //res.json('it is working.');
  
   var options = { method: 'POST',
@@ -74,7 +70,6 @@ router.post('/formData', function(req, res, next) {
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
-  //console.log(response);
   console.log(response.statusCode);
   res.json(response.statusCode);
 });

@@ -24,7 +24,8 @@ res.json('it is working now.');
   };
   userData.userEmail = userData.userEmail.replace(/\s+/g, '');
   userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
-  res.json('newData');
+  console.log(userData);
+  res.json(userData);
 
 });
 

@@ -8,13 +8,15 @@ res.json('it is working now.');
   });
 
   router.post('/testData', function(req, res, next) {
+    let starDate = getTodayDate();
+    let endDate = getNextYearDate();
     var userData = {
       Firstname : req.body.Name.First,
       Lastname : req.body.Name.Last,
       OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
       CellPhone1 : req.body.MobilePhone,
-      EndDate : '',
-      StartDate : '',
+      EndDate : endDate,
+      StartDate : starDate,
       Birthdate: req.body.BirthDate,
       fullAddress : req.body.Address.FullAddress,
       city : req.body.Address.City,

@@ -7,6 +7,11 @@ res.json('it is working now.');
   
   });
 
+  router.post('/testData', function(req, res, next) {
+    res.json(req.body);
+  });
+
+
 
 router.post('/formData', function(req, res, next) {
     var userData = {

@@ -8,6 +8,15 @@ res.json('it is working now.');
   });
 
   router.post('/testData', function(req, res, next) {
+    let date_ob = new Date();
+    let year = date_ob.getFullYear();
+    let month = date_ob.getMonth();
+    let day = date_ob.getDay();
+    let hours = date_ob.getHours();
+    let minutes = date_ob.getMinutes();
+    let seconds = date_ob.getSeconds();
+    let milliseconds = date_ob.getMilliseconds();
+    console.log(year+""+month+""+day+""+hours+""+minutes+""+seconds+""+milliseconds);
     let starDate = getTodayDate();
     //let endDate = getNextYearDate();
   //   var userData = {

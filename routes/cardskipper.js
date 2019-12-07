@@ -8,33 +8,25 @@ res.json('it is working now.');
   });
 
   router.post('/testData', function(req, res, next) {
-    let date_ob = new Date();
-    let year = date_ob.getFullYear();
-    let month = date_ob.getMonth();
-    let day = date_ob.getDay();
-    let hours = date_ob.getHours();
-    let minutes = date_ob.getMinutes();
-    let seconds = date_ob.getSeconds();
-    let milliseconds = date_ob.getMilliseconds();
-    console.log(year+""+month+""+day+""+hours+""+minutes+""+seconds+""+milliseconds);
-    //let starDate = getTodayDate();
-    //let endDate = getNextYearDate();
-  //   var userData = {
-  //     Firstname : req.body.Name.First,
-  //     Lastname : req.body.Name.Last,
-  //     OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
-  //     CellPhone1 : req.body.MobilePhone,
-  //     EndDate : endDate,
-  //     StartDate : starDate,
-  //     Birthdate: req.body.BirthDate,
-  //     fullAddress : req.body.Address.FullAddress,
-  //     city : req.body.Address.City,
-  //     zipCode:req.body.Address.PostalCode,
-  //     OrderId:req.body.Order.Id,
-  //     userEmail:req.body.Order.EmailAddress
-  // };
-  //userData.userEmail = userData.userEmail.replace(/\s+/g, '');
-  //userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
+    let memberShipNumber = getMemberShipNumber();
+    let startDate = getTodayDate();
+    let endDate = getNextYearDate();
+    
+    var userData = {
+      Firstname : req.body.Name.First,
+      Lastname : req.body.Name.Last,
+      OrganisationMemberId : memberShipNumber,
+      CellPhone1 : req.body.MobilePhone,
+      EndDate : endDate,
+      StartDate : startDate,
+      Birthdate: req.body.BirthDate,
+      fullAddress : req.body.Address.FullAddress,
+      city : req.body.Address.City,
+      zipCode:req.body.Address.PostalCode,
+      OrderId:req.body.Order.Id,
+      userEmail:req.body.Order.EmailAddress
+  };
+  console.log(userData);
   res.json("test data");
 
 });
@@ -42,22 +34,24 @@ res.json('it is working now.');
 
 
 router.post('/formData', function(req, res, next) {
-    var userData = {
-        Firstname : req.body.Name.First,
-        Lastname : req.body.Name.Last,
-        OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
-        CellPhone1 : req.body.MobilePhone,
-        EndDate : getNextYearDate(),
-        StartDate : getTodayDate(),
-        Birthdate: req.body.BirthDate,
-        fullAddress : req.body.Address.FullAddress,
-        city : req.body.Address.City,
-        zipCode:req.body.Address.PostalCode,
-        OrderId:req.body.Order.Id,
-        userEmail:req.body.Order.EmailAddress
-    };
-    userData.userEmail = userData.userEmail.replace(/\s+/g, '');
-    userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
+  let memberShipNumber = getMemberShipNumber();
+  let startDate = getTodayDate();
+  let endDate = getNextYearDate();
+  
+  var userData = {
+    Firstname : req.body.Name.First,
+    Lastname : req.body.Name.Last,
+    OrganisationMemberId : memberShipNumber,
+    CellPhone1 : req.body.MobilePhone,
+    EndDate : endDate,
+    StartDate : startDate,
+    Birthdate: req.body.BirthDate,
+    fullAddress : req.body.Address.FullAddress,
+    city : req.body.Address.City,
+    zipCode:req.body.Address.PostalCode,
+    OrderId:req.body.Order.Id,
+    userEmail:req.body.Order.EmailAddress
+};
 
   //   console.log(userData);
   //    var myJSON = JSON.stringify(req.body);
@@ -87,27 +81,29 @@ request(options, function (error, response, body) {
   
 });
 
-function getTodayDate(){
-    var today = new Date();
-var dd = String(today.getDate()).padStart('2', '0');
-var mm = String(today.getMonth() + 1).padStart('2', '0'); //January is 0!
-var yyyy = today.getFullYear();
-
-today = yyyy + '-' + mm + '-' + dd;
-return today;
+function getMemberShipNumber(){
+  let date_ob = new Date();
+  let year = date_ob.getFullYear();
+  let month = date_ob.getMonth();
+  let day = date_ob.getDay();
+  let hours = date_ob.getHours();
+  let minutes = date_ob.getMinutes();
+  let seconds = date_ob.getSeconds();
+  let milliseconds = date_ob.getMilliseconds();
+  return year+""+month+""+day+""+hours+""+minutes+""+seconds+""+milliseconds;
 }
 
-
-
-
 function getNextYearDate(){
-    var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear()+1;
+  var date_ob = new Date();
+  return (date_ob.getFullYear()+1) + '-' + date_ob.getMonth() + '-' + date_ob.getDay();
+}
 
-today = yyyy + '-' + mm + '-' + dd;
-return today;
+function getTodayDate(){
+  var date_ob = new Date();
+  let year = date_ob.getFullYear();
+  let month = date_ob.getMonth();
+  let day = date_ob.getDay();
+  return year + '-' + month + '-' + day;
 }
 
 

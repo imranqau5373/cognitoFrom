@@ -9,25 +9,25 @@ res.json('it is working now.');
 
   router.post('/testData', function(req, res, next) {
     let starDate = getTodayDate();
-    let endDate = getNextYearDate();
-    var userData = {
-      Firstname : req.body.Name.First,
-      Lastname : req.body.Name.Last,
-      OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
-      CellPhone1 : req.body.MobilePhone,
-      EndDate : endDate,
-      StartDate : starDate,
-      Birthdate: req.body.BirthDate,
-      fullAddress : req.body.Address.FullAddress,
-      city : req.body.Address.City,
-      zipCode:req.body.Address.PostalCode,
-      OrderId:req.body.Order.Id,
-      userEmail:req.body.Order.EmailAddress
-  };
+    //let endDate = getNextYearDate();
+  //   var userData = {
+  //     Firstname : req.body.Name.First,
+  //     Lastname : req.body.Name.Last,
+  //     OrganisationMemberId : Math.floor(Math.random()*90000) + 10000,
+  //     CellPhone1 : req.body.MobilePhone,
+  //     EndDate : endDate,
+  //     StartDate : starDate,
+  //     Birthdate: req.body.BirthDate,
+  //     fullAddress : req.body.Address.FullAddress,
+  //     city : req.body.Address.City,
+  //     zipCode:req.body.Address.PostalCode,
+  //     OrderId:req.body.Order.Id,
+  //     userEmail:req.body.Order.EmailAddress
+  // };
   //userData.userEmail = userData.userEmail.replace(/\s+/g, '');
   //userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
   console.log('user data new working.');
-  console.log(userData);
+  console.log(starDate);
   res.json("test data");
 
 });

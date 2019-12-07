@@ -27,11 +27,8 @@ res.json('it is working now.');
 
 });
 
-  router.post('/testData', function(req, res, next) {
-    let memberShipNumber = getMemberShipNumber();
-    let startDate = getTodayDate();
-    let endDate = getNextYearDate();
-  console.log(memberShipNumber);
+  router.get('/contactData', function(req, res, next) {
+  console.log(req.body);
   res.json("test data");
 
 });

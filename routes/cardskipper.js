@@ -17,7 +17,7 @@ res.json('it is working now.');
     let seconds = date_ob.getSeconds();
     let milliseconds = date_ob.getMilliseconds();
     console.log(year+""+month+""+day+""+hours+""+minutes+""+seconds+""+milliseconds);
-    let starDate = getTodayDate();
+    //let starDate = getTodayDate();
     //let endDate = getNextYearDate();
   //   var userData = {
   //     Firstname : req.body.Name.First,
@@ -35,8 +35,6 @@ res.json('it is working now.');
   // };
   //userData.userEmail = userData.userEmail.replace(/\s+/g, '');
   //userData.fullAddress = userData.fullAddress.replace(/\s+/g, '');
-  console.log('user data new working.');
-  console.log(starDate);
   res.json("test data");
 
 });

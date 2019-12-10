@@ -39,7 +39,7 @@ router.post('/formData', function(req, res, next) {
   let memberShipNumber = getMemberShipNumber();
   let startDate = getTodayDate();
   let endDate = getNextYearDate();
-  
+  let birthDate = getBirthDate(req.body.BirthDate);
   var userData = {
     Firstname : req.body.Name.First,
     Lastname : req.body.Name.Last,
@@ -47,28 +47,31 @@ router.post('/formData', function(req, res, next) {
     CellPhone1 : req.body.MobilePhone,
     EndDate : endDate,
     StartDate : startDate,
-    Birthdate: req.body.BirthDate,
+    Birthdate: birthDate,
     fullAddress : req.body.Address.FullAddress,
     city : req.body.Address.City,
     zipCode:req.body.Address.PostalCode,
     OrderId:req.body.Order.Id,
     userEmail:req.body.Order.EmailAddress
 };
+
+console.log(userData);
+res.json('working test');
  
-  var options = { method: 'POST',
-  url: 'https://api.cardskipper.se/Import/Member',
-  headers: 
-   { 'Postman-Token': 'a1729a25-7f9e-4883-845f-e2704b73ea6a',
-     'cache-control': 'no-cache',
-     Authorization: 'Basic ZG9ubmllQHJnYWkubmV0OmRvbm5pZTU1NQ==',
-     'Content-Type': 'application/xml' },
-     body:  '<Cardskipper>\r\n<Members>\r\n<Member Inactive="false"  Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n\r\n<Address City="'+userData.city+'" Zip="'+userData.zipCode+'" Line2="Test" Line1="'+userData.fullAddress+'"/>\r\n<ContactInfo EMail="'+userData.userEmail+'"/>\r\n<Organisations>\r\n\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
-     //'<Cardskipper>\r\n<Members>\r\n<Member Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    console.log(response.statusCode);
-    res.json(response.statusCode);
-  });
+  // var options = { method: 'POST',
+  // url: 'https://api.cardskipper.se/Import/Member',
+  // headers: 
+  //  { 'Postman-Token': 'a1729a25-7f9e-4883-845f-e2704b73ea6a',
+  //    'cache-control': 'no-cache',
+  //    Authorization: 'Basic ZG9ubmllQHJnYWkubmV0OmRvbm5pZTU1NQ==',
+  //    'Content-Type': 'application/xml' },
+  //    body:  '<Cardskipper>\r\n<Members>\r\n<Member Inactive="false"  Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n\r\n<Address City="'+userData.city+'" Zip="'+userData.zipCode+'" Line2="Test" Line1="'+userData.fullAddress+'"/>\r\n<ContactInfo EMail="'+userData.userEmail+'"/>\r\n<Organisations>\r\n\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+  //    //'<Cardskipper>\r\n<Members>\r\n<Member Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+  // request(options, function (error, response, body) {
+  //   if (error) throw new Error(error);
+  //   console.log(response.statusCode);
+  //   res.json(response.statusCode);
+  // });
   
 });
 
@@ -101,6 +104,14 @@ function day_of_the_month(d)
 
 function getTodayDate(){
   var date_ob = new Date();
+  let year = date_ob.getFullYear();
+  let month = getMonth(date_ob);
+  let day = day_of_the_month(date_ob);
+  return year + '-' + month + '-' + day;
+}
+
+function getBirthDate(birthDate){
+  var date_ob = new Date(birthDate);
   let year = date_ob.getFullYear();
   let month = getMonth(date_ob);
   let day = day_of_the_month(date_ob);

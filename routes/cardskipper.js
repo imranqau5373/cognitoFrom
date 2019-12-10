@@ -58,6 +58,7 @@ router.post('/formData', function(req, res, next) {
 };
 if(userData.Extra2 == null && userData.Extra2 == "")
   userData.Extra2 = "NO CODE";
+  console.log(userData);
  
   var options = { method: 'POST',
   url: 'https://api.cardskipper.se/Import/Member',

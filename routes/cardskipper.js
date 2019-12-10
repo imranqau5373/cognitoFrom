@@ -55,6 +55,8 @@ router.post('/formData', function(req, res, next) {
     userEmail:req.body.Order.EmailAddress
 };
 
+console.log(req.body);
+
 console.log(userData);
 res.json('working test');
  
@@ -112,6 +114,8 @@ function getTodayDate(){
 
 function getBirthDate(birthDate){
   var date_ob = new Date(birthDate);
+  console.log('In birth date.')
+  console.log(date_ob);
   let year = date_ob.getFullYear();
   let month = getMonth(date_ob);
   let day = day_of_the_month(date_ob);

@@ -83,12 +83,45 @@ router.get('/getNumber',function(req,res){
  
 });
 
+router.get('/testnewnumber', function(req, res, next) {
+
+  GetSixdigitMemberShipNumber(function(number){
+    console.log(number);
+    res.json('test new ',number); 
+  });
+
+  
+});
+
 function checkNumberExist(age,number) {
   return age == number;
 }
 
-function GetSixdigitMemberShipNumber(){
-  return Math.floor(100000 + Math.random() * 900000);
+function GetSixdigitMemberShipNumber(callback){
+  let number = Math.floor(100000 + Math.random() * 900000);
+  fs.readFile('demofile1.txt', 'utf8', function(err, contents) {
+    var numberArray = contents.split(',');
+    let find = checkNumberExist(numberArray,number);
+    if(find){
+      for(let i = 0; i< 100; i++){
+        let newNumber = Math.floor(100000 + Math.random() * 900000);
+        let newNumberExist = checkNumberExist(numberArray,newNumber);
+        if(newNumberExist)
+          continue;
+        else{
+          number = newNumber;
+          break;
+        }
+      }
+    }
+    else{
+      contents += ","+number;
+    }
+    fs.writeFile('demofile1.txt', contents, function (err) {
+      console.log('In write file')
+      return contents;
+    });
+  });
 }
 
 router.post('/formData', function(req, res, next) {

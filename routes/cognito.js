@@ -55,6 +55,42 @@ request(options, function (error, response, body) {
 
 });
 
+router.get('/getNumber',function(req,res){
+  let number = GetSixdigitMemberShipNumber();
+  fs.readFile('demofile1.txt', 'utf8', function(err, contents) {
+    console.log(contents);
+    var numberArray = contents.split(',');
+    let find = checkNumberExist(numberArray,number);
+    if(find){
+      for(let i = 0; i< 100; i++){
+        let newNumber = GetSixdigitMemberShipNumber();
+        let newNumberExist = checkNumberExist(numberArray,newNumber);
+        if(newNumberExist)
+          continue;
+        else{
+          number = newNumber;
+          break;
+        }
+      }
+    }
+    else{
+      contents += ","+number;
+    }
+    fs.writeFile('demofile1.txt', contents, function (err) {
+      res.json(contents);
+    });
+  });
+ 
+});
+
+function checkNumberExist(age,number) {
+  return age == number;
+}
+
+function GetSixdigitMemberShipNumber(){
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
 router.post('/formData', function(req, res, next) {
   console.log("in from data request.");
   res.json("test new data");

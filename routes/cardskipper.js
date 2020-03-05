@@ -36,7 +36,7 @@ res.json('it is working now.');
 
 
 router.post('/formData', function(req, res, next) {
-  let memberShipNumber = getMemberShipNumber();
+  let memberShipNumber = GetSixdigitMemberShipNumber();
   let startDate = getTodayDate();
   let endDate = getNextYearDate();
   let birthDate = getBirthDate(req.body.BirthDate);
@@ -89,10 +89,42 @@ function getMemberShipNumber(){
   return year+""+month+""+day+""+hours+""+minutes+""+seconds+""+milliseconds;
 }
 
+function GetSixdigitMemberShipNumber(){
+    
+    let number = Math.floor(100000 + Math.random() * 900000);
+    fs.readFile('demofile1.txt', 'utf8', function(err, contents) {
+      var numberArray = contents.split(',');
+      let find = checkNumberExist(numberArray,number);
+      if(find){
+        for(let i = 0; i< 100; i++){
+          let newNumber = Math.floor(100000 + Math.random() * 900000);
+          let newNumberExist = checkNumberExist(numberArray,newNumber);
+          if(newNumberExist)
+            continue;
+          else{
+            number = newNumber;
+            break;
+          }
+        }
+      }
+      else{
+        contents += ","+number;
+      }
+      fs.writeFile('demofile1.txt', contents, function (err) {
+        return number;
+      });
+    });
+}
+
 function getNextYearDate(){
   var date_ob = new Date();
   return (date_ob.getFullYear()+1) + '-' + getMonth(date_ob) + '-' + day_of_the_month(date_ob);
 }
+
+function checkNumberExist(age,number) {
+  return age == number;
+}
+
 
 function getMonth(date) {
   var month = date.getMonth() + 1;

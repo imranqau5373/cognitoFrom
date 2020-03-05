@@ -36,7 +36,7 @@ res.json('it is working now.');
 
 
 router.post('/formData', function(req, res, next) {
-  let memberShipNumber = GetSixdigitMemberShipNumber();
+  let memberShipNumber = 684885;//GetSixdigitMemberShipNumber();
   let startDate = getTodayDate();
   let endDate = getNextYearDate();
   let birthDate = getBirthDate(req.body.BirthDate);

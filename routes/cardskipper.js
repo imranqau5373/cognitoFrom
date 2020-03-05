@@ -39,6 +39,7 @@ router.post('/formData', function(req, res, next) {
  
   let number = Math.floor(100000 + Math.random() * 900000);
   fs.readFile('demofile1.txt', 'utf8', function(err, contents) {
+    console.log('contents');
     var numberArray = contents.split(',');
     let find = checkNumberExist(numberArray,number);
     if(find){
@@ -57,6 +58,7 @@ router.post('/formData', function(req, res, next) {
       contents += ","+number;
     }
     fs.writeFile('demofile1.txt', contents, function (err) {
+      console.log('in write file');
       let memberShipNumber = number;
       let startDate = getTodayDate();
       let endDate = getNextYearDate();
@@ -92,6 +94,7 @@ router.post('/formData', function(req, res, next) {
          //'<Cardskipper>\r\n<Members>\r\n<Member Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
       request(options, function (error, response, body) {
         if (error) throw new Error(error);
+        console.log('api card skipper data.');
         console.log(response.statusCode);
         res.json(response.statusCode);
       });
@@ -165,7 +168,7 @@ function GetSixdigitMemberShipNumber(){
            'cache-control': 'no-cache',
            Authorization: 'Basic ZG9ubmllQHJnYWkubmV0OmRvbm5pZTU1NQ==',
            'Content-Type': 'application/xml' },
-           body:  '<Cardskipper>\r\n<Members>\r\n<Member Inactive="false"  Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<Extra Extra3="  " Extra2="'+userData.Extra2+'" Extra1=" "/>\r\n<Address City="'+userData.city+'" Zip="'+userData.zipCode+'" Line2="Test" Line1="'+userData.fullAddress+'"/>\r\n<ContactInfo EMail="'+userData.userEmail+'" CellPhone2="'+userData.MobilePhone+'"/>\r\n<Organisations>\r\n\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
+           body:  '<Cardskipper>\r\n<Members>\r\n<Member Inactive="false"  Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<Extra Extra3="  " Extra2="'+userData.Extra2+'" Extra1=" "/>\r\n<Address City="'+userData.city+'" Zip="'+userData.zipCode+'" Line2="" Line1="'+userData.fullAddress+'"/>\r\n<ContactInfo EMail="'+userData.userEmail+'" CellPhone2="'+userData.MobilePhone+'"/>\r\n<Organisations>\r\n\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
            //'<Cardskipper>\r\n<Members>\r\n<Member Birthdate="'+userData.Birthdate+'" Firstname="'+userData.Firstname+'" Lastname="'+userData.Lastname+'" OrganisationMemberId="'+userData.OrganisationMemberId+'">\r\n<ContactInfo CellPhone1="'+userData.CellPhone1+'"/>\r\n<Organisations>\r\n<Organisation ClearTags="false" Id="2">\r\n<Roles>\r\n<Role Id="3126" EndDate="'+userData.EndDate+'" StartDate="'+userData.StartDate+'"/>\r\n</Roles>\r\n</Organisation>\r\n</Organisations>\r\n</Member>\r\n</Members>\r\n</Cardskipper>' };
         request(options, function (error, response, body) {
           if (error) throw new Error(error);

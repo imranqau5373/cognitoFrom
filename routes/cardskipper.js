@@ -37,7 +37,7 @@ res.json('it is working now.');
 
 router.post('/formData', function(req, res, next) {
 
-  let number = Math.floor(100000 + Math.random() * 900000);
+  let number = Math.floor(10000000 + Math.random() * 90000000);
       let memberShipNumber = number;
       let startDate = getTodayDate();
       let endDate = getNextYearDate();
